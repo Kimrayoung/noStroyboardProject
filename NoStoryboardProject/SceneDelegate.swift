@@ -21,7 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)//현재 스크린의 사이즈를 window에 넣어준다
         
-        let viewController = ViewController() // 처음 보일 viewController
+//        let viewController = ViewController() // 처음 보일 viewController
+        let viewController = UsageViewController() // 처음 보일 viewController
         
         window?.rootViewController = viewController //위에서 만든 view controller를 첫 화면으로 띄우기 -> storyboard에서 entry point설정하는 것과 동일한 효과
         

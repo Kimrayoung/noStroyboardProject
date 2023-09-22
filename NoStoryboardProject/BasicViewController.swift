@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController {
+class BasicViewController: UIViewController {
     //lazy var -> 변수를 실제로 사용할때 메모리에 올라간다
     lazy var topStackView: UIStackView = { //클로저의 형태
         let stackView = UIStackView()
@@ -37,12 +37,22 @@ class ViewController: UIViewController {
         //storyboard의 mainview에 데이터를 넣어주는 것처럼 stackview를 view에 넣어준 후 위치를 잡아준다
         self.view.addSubview(topStackView)
         
-        //위치잡기
-        NSLayoutConstraint.activate([
-            topStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            topStackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 100),
-            topStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20)
-        ])
+        topStackView.snp.makeConstraints { make in
+            //크기 잡기
+            make.top.equalToSuperview().offset(100) //부모와 맞춤
+//            make.centerX.equalToSuperview()
+//            make.left.equalToSuperview().offset(20)
+            //edge는 view에서 어느 거리에 삽입할 것인지를 의미한다
+            make.horizontalEdges.equalToSuperview().inset(UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)) //왼쪽, 오른쪽을 supreview에서 부터 걸어버림
+            //위치 잡기
+        }
+        
+        //위치잡기 - 기존 코드
+//        NSLayoutConstraint.activate([
+//            topStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+//            topStackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 100),
+//            topStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20)
+//        ])
         
         //storyboard에서 uiview를 생성해서 붙여주는 것
 //        let yellowView = UIView()
@@ -91,7 +101,7 @@ class ViewController: UIViewController {
 }
 
 //MARK: - view 관련
-extension ViewController {
+extension BasicViewController {
     
 //    fileprivate func generateMyCardView() -> MyCardView {
 //        let firstView = MyCardView() //cardView를 생성해준다
@@ -169,28 +179,28 @@ extension ViewController {
     }
 }
 
-#if DEBUG
-
-import SwiftUI
-
-struct ViewControllerPresentable: UIViewControllerRepresentable { //UIViewControllerRepresentable -> swiftUI에서 uiviewcontroller를 사용할 수 있게 해주는 것
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) { //상태가 변경되면 업데이트가 된다
-        print(#fileID, #function, #line, "- <#comment#>")
-    }
-    
-    func makeUIViewController(context: Context) -> some UIViewController { //처음에 뷰를 그릴때 여기를 탄다
-        ViewController() //메모리에 viewController를 올려줌
-    }
-}
-
-
-struct ViewControllerPrepresentable_PreviewProvider : PreviewProvider { //previewProvider이라는 타입을 이용해서 ViewControllerPresentable를 미리 보기로 제공할 수가 있으
-    static var previews: some View { //static이 붙었으므로 타입프로퍼티에 해당한다, 특정 타입에서 사용되는 프로퍼티에 해당한다
-        ViewControllerPresentable()
-            .previewDevice("iphone 14")
-            .previewDisplayName("iphone 14")
-            .ignoresSafeArea()
-    }
-}
-
-#endif
+//#if DEBUG
+//
+//import SwiftUI
+//
+//struct ViewControllerPresentable: UIViewControllerRepresentable { //UIViewControllerRepresentable -> swiftUI에서 uiviewcontroller를 사용할 수 있게 해주는 것
+//    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) { //상태가 변경되면 업데이트가 된다
+//        print(#fileID, #function, #line, "- <#comment#>")
+//    }
+//    
+//    func makeUIViewController(context: Context) -> some UIViewController { //처음에 뷰를 그릴때 여기를 탄다
+//        ViewController() //메모리에 viewController를 올려줌
+//    }
+//}
+//
+//
+//struct ViewControllerPrepresentable_PreviewProvider : PreviewProvider { //previewProvider이라는 타입을 이용해서 ViewControllerPresentable를 미리 보기로 제공할 수가 있으
+//    static var previews: some View { //static이 붙었으므로 타입프로퍼티에 해당한다, 특정 타입에서 사용되는 프로퍼티에 해당한다
+//        ViewControllerPresentable()
+//            .previewDevice("iphone 14")
+//            .previewDisplayName("iphone 14")
+//            .ignoresSafeArea()
+//    }
+//}
+//
+//#endif

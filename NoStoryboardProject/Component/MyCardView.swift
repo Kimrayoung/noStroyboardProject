@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+
+/// Custom view로 UIView만들기
 class MyCardView: UIView {
     
     //view를 프로그램으로 만드는 것이므로 생성자를 넣어줘야 한다
