@@ -9,6 +9,16 @@ import UIKit
 import SnapKit
 
 class ViewController: UIViewController {
+    //lazy var -> 변수를 실제로 사용할때 메모리에 올라간다
+    lazy var topStackView: UIStackView = { //클로저의 형태
+        let stackView = UIStackView()
+        stackView.spacing = 10
+        stackView.alignment = .fill
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,15 +26,33 @@ class ViewController: UIViewController {
         print(#fileID, #function, #line, "- <#comment#>")
         self.view.backgroundColor = .white
         
+//        let firstView = generateCardView()
+//        let secondView = generateCardView()
+//        let thirdView = generateCardView()
+        
+        topStackView.addArrangedSubview(MyCardView.generateMyCardView())
+        topStackView.addArrangedSubview(MyCardView.generateMyCardView())
+        topStackView.addArrangedSubview(MyCardView.generateMyCardView())
+        
+        //storyboard의 mainview에 데이터를 넣어주는 것처럼 stackview를 view에 넣어준 후 위치를 잡아준다
+        self.view.addSubview(topStackView)
+        
+        //위치잡기
+        NSLayoutConstraint.activate([
+            topStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            topStackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 100),
+            topStackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20)
+        ])
+        
         //storyboard에서 uiview를 생성해서 붙여주는 것
-        let yellowView = UIView()
-        yellowView.backgroundColor = UIColor.yellow
+//        let yellowView = UIView()
+//        yellowView.backgroundColor = UIColor.yellow
         //translatesAutoresizingMaskIntoConstraints를 하는 이유
         //일단 기본적으로 uikit은 frame베이스이기 때문에 그걸 막기 위해서
         //기본적으로 시스테은 뷰의 프레임과 자동크기조정 마스크를 기반으로 한 세트의 제약조건을 자동으로 생성한다
 //        yellowView.translatesAutoresizingMaskIntoConstraints = false
         
-        self.view.addSubview(yellowView)
+//        self.view.addSubview(yellowView)
         
         //autolayout 사용
         /*
@@ -51,12 +79,93 @@ class ViewController: UIViewController {
          */
         
         //snapkit 사용
+        /*
         yellowView.snp.makeConstraints { (make) -> Void in
             make.size.equalTo(200)
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(100) //offset은 ~만큼 띄었다를 의미
         }
+         */
         
+    }
+}
+
+//MARK: - view 관련
+extension ViewController {
+    
+//    fileprivate func generateMyCardView() -> MyCardView {
+//        let firstView = MyCardView() //cardView를 생성해준다
+//        firstView.translatesAutoresizingMaskIntoConstraints = false
+//        return firstView
+//    }
+    
+    /// 카드뷰 생성 및 반환
+    /// - Returns: 카드 뷰
+    fileprivate func generateCardView() -> UIView {
+        let containerView = UIView()
+        containerView.backgroundColor = UIColor.systemYellow
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let titleLabel = UILabel()
+        titleLabel.text = "사운드\n테라피"
+        titleLabel.numberOfLines = 0 //여러줄 가능함
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        //서브타이틀 설정
+        let subTitleLabel = UILabel()
+        subTitleLabel.text = "무료"
+        subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        //subtitle을 담고 있는 컨테이너 설정
+        let subTitleLabelContainer = UIView()
+        subTitleLabelContainer.backgroundColor = .systemMint
+        subTitleLabelContainer.translatesAutoresizingMaskIntoConstraints = false
+        
+        subTitleLabelContainer.addSubview(subTitleLabel)
+        
+        //subtitleContainer의 하위요소 위치잡기
+        NSLayoutConstraint.activate([
+            subTitleLabel.centerXAnchor.constraint(equalTo: subTitleLabelContainer.centerXAnchor),
+            subTitleLabel.centerYAnchor.constraint(equalTo: subTitleLabelContainer.centerYAnchor),
+            subTitleLabel.leadingAnchor.constraint(equalTo: subTitleLabelContainer.leadingAnchor, constant: 5),
+            subTitleLabel.topAnchor.constraint(equalTo: subTitleLabelContainer.topAnchor, constant: 5)
+        ])
+        
+        //이미지뷰 만들기
+        let bottomImageView = UIImageView(image: UIImage(systemName: "person.crop.circle"))
+        bottomImageView.contentMode = .scaleAspectFit
+        bottomImageView.tintColor = .black
+        bottomImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        //이미지뷰 크기 정하기
+        NSLayoutConstraint.activate([
+            bottomImageView.widthAnchor.constraint(equalToConstant: 50),
+            bottomImageView.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        //항상 똑같이 label을 만들때는 1. view에 집어넣고 -> addSubview(storyboard에 올리는 것과 동일) 2. 위치 잡기 -> LSLayoutConstraint(Stroyboard의 autolayout)
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(subTitleLabelContainer)
+        containerView.addSubview(bottomImageView)
+        
+        //firstview의 크기잡고 하위요소들 위치 잡기
+        NSLayoutConstraint.activate([
+            //firstview 크기 잡기
+            containerView.widthAnchor.constraint(equalToConstant: 100),
+            containerView.heightAnchor.constraint(equalToConstant: 200),
+            
+            titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
+            titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            
+            subTitleLabelContainer.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
+            subTitleLabelContainer.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            
+            //bottom과 trailing은 위치를 잡을 때 음수로 잡아야 한다
+            bottomImageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -5),
+            bottomImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -5)
+        ])
+        
+        return containerView
     }
 }
 

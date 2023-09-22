@@ -13,6 +13,7 @@
 		4D2796CF2ABD7835007A1F3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D2796CE2ABD7835007A1F3F /* Assets.xcassets */; };
 		4D2796D22ABD7835007A1F3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2796D02ABD7835007A1F3F /* LaunchScreen.storyboard */; };
 		4D2796DB2ABD890C007A1F3F /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4D2796DA2ABD890C007A1F3F /* SnapKit */; };
+		4D2796DD2ABDB73B007A1F3F /* MyCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2796DC2ABDB73B007A1F3F /* MyCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		4D2796CE2ABD7835007A1F3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D2796D12ABD7835007A1F3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D2796D32ABD7835007A1F3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D2796DC2ABDB73B007A1F3F /* MyCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		4D2796C42ABD7834007A1F3F /* NoStoryboardProject */ = {
 			isa = PBXGroup;
 			children = (
+				4D2796DE2ABDB742007A1F3F /* Component */,
 				4D2796C52ABD7834007A1F3F /* AppDelegate.swift */,
 				4D2796C72ABD7834007A1F3F /* SceneDelegate.swift */,
 				4D2796C92ABD7834007A1F3F /* ViewController.swift */,
@@ -64,6 +67,14 @@
 				4D2796D32ABD7835007A1F3F /* Info.plist */,
 			);
 			path = NoStoryboardProject;
+			sourceTree = "<group>";
+		};
+		4D2796DE2ABDB742007A1F3F /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				4D2796DC2ABDB73B007A1F3F /* MyCardView.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +155,7 @@
 			files = (
 				4D2796CA2ABD7834007A1F3F /* ViewController.swift in Sources */,
 				4D2796C62ABD7834007A1F3F /* AppDelegate.swift in Sources */,
+				4D2796DD2ABDB73B007A1F3F /* MyCardView.swift in Sources */,
 				4D2796C82ABD7834007A1F3F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
